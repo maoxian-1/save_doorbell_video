@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY requirements.txt ./
 COPY app.py ./
-COPY sources.list /etc/apt/sources.list
+# COPY sources.list /etc/apt/sources.list
 RUN apt-get update && \
     apt-get install -y \
     ffmpeg \
@@ -15,6 +15,6 @@ RUN apt-get update && \
     vainfo \
     i965-va-driver \
     && apt-get clean
-RUN pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+RUN pip install -r requirements.txt
 
 CMD ["python3","app.py"]
