@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build ./nas --file Dockerfile --tag save_doorbell_video:$(date +%s)
+      run: docker build ./nas --file ./nas/Dockerfile --tag save_doorbell_video:$(date +%s)
