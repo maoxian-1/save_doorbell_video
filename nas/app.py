@@ -17,7 +17,7 @@ def save_video():
     stream_address = urllib.parse.unquote(data.get('stream_address'))
     motion_video_time = data.get('motion_video_time')
     save_path = '/nas'  #视频保存位置
-    video_limit = '30'  #保存天数上限
+    video_limit = '180'  #保存天数上限
 
     m3u8_file = f'{save_path}/tmp/{motion_video_time}.m3u8'
     ts_tmp_dir = f'{save_path}/tmp/{motion_video_time}/'
@@ -41,11 +41,11 @@ def save_video():
         try:
             os.system(f"rm -rf {save_path}/{current_date}/{motion_video_time}.mp4")
             # 猫眼的视频是HEVC编码格式，有点占用较少，缺点不同的设备不一定能播放出画面
-            # os.system(f"ffmpeg -f concat -safe 0 -i {ts_tmp_dir}ts.list -c copy {save_path}/{current_date}/{motion_video_time}.mp4")
+            os.system(f"ffmpeg -f concat -safe 0 -i {ts_tmp_dir}ts.list -c copy {save_path}/{current_date}/{motion_video_time}.mp4")
 
 
             # 软解把HEVC转成H.264，占用较大，软解硬解都能放
-            os.system(f"ffmpeg -f concat -safe 0 -i {ts_tmp_dir}ts.list -c:v libx264 -preset slow -crf 22 -c:a copy -b:a 128k {save_path}/{current_date}/{motion_video_time}.mp4")
+            # os.system(f"ffmpeg -f concat -safe 0 -i {ts_tmp_dir}ts.list -c:v libx264 -preset slow -crf 22 -c:a copy -b:a 128k {save_path}/{current_date}/{motion_video_time}.mp4")
 
             # 启用VAAPI硬编码
             # os.system(f"ffmpeg -f concat -safe 0 -i {ts_tmp_dir}ts.list -vaapi_device /dev/dri/renderD128 -c:v h264_vaapi -global_quality 25 -vf 'format=nv12|vaapi,hwupload' -c:a copy {save_path}/{current_date}/{motion_video_time}.mp4")
