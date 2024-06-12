@@ -26,5 +26,5 @@ jobs:
       
     - name: Build the Docker image
       run: |
-        docker build . --file Dockerfile --tag ghcr.io/maoxian-1/save_doorbell_video:$(date +%s)
-        docker push ghcr.io/maoxian-1/store:latest
+        docker build . --file Dockerfile --tag ghcr.io/maoxian-1/save_doorbell_video:latest
+        docker push ghcr.io/maoxian-1/save_doorbell_video:latest
